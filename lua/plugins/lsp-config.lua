@@ -24,7 +24,16 @@ return {
         settings = {
           Lua = {
             diagnostics = {
-              globals = { "vim" }, -- stops "undefined global vim" warnings
+              globals = { "vim" },
+            },
+          },
+        },
+      })
+      vim.lsp.config("rust_analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            check = {
+              command = "clippy",
             },
           },
         },
@@ -34,7 +43,6 @@ return {
       vim.lsp.enable("rust_analyzer")
       vim.lsp.enable("ts_ls")
       vim.lsp.enable("gopls")
-
       -- keybinds
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })

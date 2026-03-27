@@ -6,6 +6,13 @@ vim.g.mapleader = " "
 vim.wo.relativenumber = true
 vim.wo.number = true
 
+-- Clipboard settings
+vim.g.clipboard = {
+	copy = { ["+"] = "wl-copy" },
+	paste = { ["+"] = "wl-paste --no-newline" },
+	cache_enabled = true,
+}
+
 vim.diagnostic.config({
 	virtual_text = true, -- shows error text inline at end of line
 	signs = true,

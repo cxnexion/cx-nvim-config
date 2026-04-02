@@ -1,52 +1,57 @@
 return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "eslint", "rust_analyzer", "ts_ls", "gopls" },
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			vim.lsp.config("*", {
-				capabilities = capabilities,
-			})
-			vim.lsp.config("lua_ls", {
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-					},
-				},
-			})
-			vim.lsp.config("rust_analyzer", {
-				settings = {
-					["rust-analyzer"] = {
-						check = {
-							command = "clippy",
-						},
-					},
-				},
-			})
-			vim.lsp.enable("lua_ls")
-			vim.lsp.enable("eslint")
-			vim.lsp.enable("rust_analyzer")
-			vim.lsp.enable("ts_ls")
-			vim.lsp.enable("gopls")
-			-- keybinds
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-		end,
-	},
+  {
+    "williamboman/mason.nvim",
+    opts = {},
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "lua_ls", "rust_analyzer", "vtsls", "emmet_ls", "gopls", "cssls"
+      },
+      handlers = {
+        function(server_name)
+          vim.lsp.enable(server_name)
+        end,
+        ["lua_ls"] = function()
+          vim.lsp.config("lua_ls", {
+            settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+          })
+          vim.lsp.enable("lua_ls")
+        end,
+        ["vtsls"] = function()
+          vim.lsp.config("vtsls", {
+            settings = { typescript = { tsserver = { maxTsServerMemory = 512 } } },
+          })
+          vim.lsp.enable("vtsls")
+        end,
+        ["rust_analyzer"] = function()
+          vim.lsp.config("rust_analyzer", {
+            settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
+          })
+          vim.lsp.enable("rust_analyzer")
+        end,
+        ["emmet_ls"] = function()
+          vim.lsp.config("emmet_ls", {
+            filetypes = {
+              "css", "html", "javascript", "javascriptreact",
+              "sass", "scss", "less", "typescriptreact"
+            },
+          })
+          vim.lsp.enable("emmet_ls")
+        end,
+      },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      vim.lsp.config("*", { capabilities = capabilities })
+
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+    end,
+  },
 }

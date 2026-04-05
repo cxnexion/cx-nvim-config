@@ -1,14 +1,14 @@
 return {
   {
     "williamboman/mason.nvim",
-<<<<<<< HEAD
     opts = {},
   },
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "lua_ls", "rust_analyzer", "vtsls", "emmet_ls", "gopls", "cssls"
+        "lua_ls", "rust_analyzer", "vtsls", "emmet_ls",
+        "gopls", "cssls", "eslint",
       },
       handlers = {
         function(server_name)
@@ -43,67 +43,26 @@ return {
         end,
       },
     },
-=======
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "eslint", "rust_analyzer", "ts_ls", "gopls" },
-      })
-    end,
->>>>>>> 9832fae (Changes)
   },
   {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-<<<<<<< HEAD
       vim.lsp.config("*", { capabilities = capabilities })
 
-=======
-      vim.lsp.config("*", {
-        capabilities = capabilities,
-      })
+      -- gdscript (not in mason, connect manually)
       vim.lsp.config("gdscript", {
         cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
       })
-      vim.lsp.config("lua_ls", {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-          },
-        },
-      })
-      vim.lsp.config("rust_analyzer", {
-        settings = {
-          ["rust-analyzer"] = {
-            check = {
-              command = "clippy",
-            },
-          },
-        },
-      })
       vim.lsp.enable("gdscript")
-      -- GDScript format
+
       vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*.gd",
         callback = function()
           vim.lsp.buf.format({ async = false })
         end,
       })
-      vim.lsp.enable("lua_ls")
-      vim.lsp.enable("eslint")
-      vim.lsp.enable("rust_analyzer")
-      vim.lsp.enable("ts_ls")
-      vim.lsp.enable("gopls")
-      -- keybinds
->>>>>>> 9832fae (Changes)
+
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })

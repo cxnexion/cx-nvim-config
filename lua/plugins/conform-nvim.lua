@@ -15,24 +15,27 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-			html = { "prettierd", "prettier", stop_after_first = true },
-			css = { "prettierd", "prettier", stop_after_first = true },
-			json = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "oxfmt" },
+			typescript = { "oxfmt" },
+			javascriptreact = { "oxfmt" },
+			typescriptreact = { "oxfmt" },
+			html = { "oxfmt" },
+			css = { "oxfmt" },
+			json = { "oxfmt" },
+			markdown = { "oxfmt" },
 			toml = { "taplo" },
 			go = { "goimports", "gofmt" },
 			rust = { "rustfmt" },
+			gdscript = { "gdformat" },
 		},
 		format_on_save = {
-			timeout_ms = 500,
+			timeout_ms = 300,
 			lsp_format = "fallback",
 		},
 		formatters = {
-			prettier = {
-				args = { "--stdin-filepath", "$FILENAME", "--tab-width", "4" },
+			oxfmt = {
+				command = "oxfmt",
+				args = { "--stdin-filepath", "$FILENAME" },
 			},
 		},
 	},

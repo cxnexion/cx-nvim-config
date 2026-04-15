@@ -33,7 +33,16 @@ return {
 				end,
 				["rust_analyzer"] = function()
 					vim.lsp.config("rust_analyzer", {
-						settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
+						settings = {
+							["rust-analyzer"] = {
+								cachePriming = {
+									-- Okay, so I really don't understand
+									-- where this thing can be useful. My laptop fans burnt.
+									enable = false,
+								},
+								-- check = { command = "clippy" }
+							},
+						},
 					})
 					vim.lsp.enable("rust_analyzer")
 				end,

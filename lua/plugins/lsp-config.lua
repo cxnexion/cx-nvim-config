@@ -36,9 +36,7 @@ return {
 						settings = {
 							["rust-analyzer"] = {
 								cachePriming = {
-									-- Okay, so I really don't understand
-									-- where this thing can be useful. My laptop fans burnt.
-									enable = false,
+									enable = true,
 								},
 								-- check = { command = "clippy" }
 							},
@@ -74,6 +72,10 @@ return {
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
 
+			vim.lsp.config("zls", {
+				cmd = { vim.fn.expand("$HOME") .. "/.local/share/zvm/bin/zls" },
+			})
+			vim.lsp.enable("zls")
 			vim.lsp.config("gdscript", {
 				cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
 			})

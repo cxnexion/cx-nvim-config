@@ -27,6 +27,7 @@ return {
 			go = { "goimports", "gofmt" },
 			rust = { "rustfmt" },
 			gdscript = { "gdformat" },
+			zig = { "zls" },
 		},
 		format_on_save = {
 			timeout_ms = 300,

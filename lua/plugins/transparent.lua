@@ -9,5 +9,9 @@ return {
 				"NormalFloat",
 			},
 		})
+
+		-- This is the "magic" line for Lualine
+		require("transparent").clear_prefix("lualine")
+		require("transparent").clear_prefix("NeoTree")
 	end,
 }

@@ -19,25 +19,10 @@ return {
 				function(server_name)
 					vim.lsp.enable(server_name)
 				end,
-				["lua_ls"] = function()
-					vim.lsp.config("lua_ls", {
-						settings = { Lua = { diagnostics = { globals = { "vim" } } } },
-					})
-					vim.lsp.enable("lua_ls")
-				end,
-				["vtsls"] = function()
-					vim.lsp.config("vtsls", {
-						settings = { typescript = { tsserver = { maxTsServerMemory = 512 } } },
-					})
-					vim.lsp.enable("vtsls")
-				end,
 				["rust_analyzer"] = function()
 					vim.lsp.config("rust_analyzer", {
 						settings = {
 							["rust-analyzer"] = {
-								cachePriming = {
-									enable = true,
-								},
 								-- check = { command = "clippy" }
 							},
 						},
@@ -48,21 +33,6 @@ return {
 					vim.lsp.config("oxlint", {})
 					vim.lsp.enable("oxlint")
 				end,
-				["emmet_ls"] = function()
-					vim.lsp.config("emmet_ls", {
-						filetypes = {
-							"css",
-							"html",
-							"javascript",
-							"javascriptreact",
-							"sass",
-							"scss",
-							"less",
-							"typescriptreact",
-						},
-					})
-					vim.lsp.enable("emmet_ls")
-				end,
 			},
 		},
 	},
@@ -71,6 +41,8 @@ return {
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
+
+			vim.lsp.enable("gleam")
 
 			vim.lsp.config("zls", {
 				cmd = { vim.fn.expand("$HOME") .. "/.local/share/zvm/bin/zls" },

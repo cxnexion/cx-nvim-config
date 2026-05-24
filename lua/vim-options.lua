@@ -28,8 +28,6 @@ vim.diagnostic.config({
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
 
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {})
-
 vim.api.nvim_create_autocmd("User", { -- lazy loading here so it's not requiring when wk isn't ready
 	pattern = "VeryLazy",
 	callback = function()

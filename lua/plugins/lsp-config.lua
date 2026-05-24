@@ -6,28 +6,9 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		opts = {
-			ensure_installed = {
-				"lua_ls",
-				"rust_analyzer",
-				"vtsls",
-				"emmet_ls",
-				"gopls",
-				"cssls",
-				"oxlint",
-			},
 			handlers = {
 				function(server_name)
 					vim.lsp.enable(server_name)
-				end,
-				["rust_analyzer"] = function()
-					vim.lsp.config("rust_analyzer", {
-						settings = {
-							["rust-analyzer"] = {
-								-- check = { command = "clippy" }
-							},
-						},
-					})
-					vim.lsp.enable("rust_analyzer")
 				end,
 				["oxlint"] = function()
 					vim.lsp.config("oxlint", {})
@@ -43,7 +24,6 @@ return {
 			vim.lsp.config("*", { capabilities = capabilities })
 
 			vim.lsp.enable("gleam")
-
 			vim.lsp.config("zls", {
 				cmd = { vim.fn.expand("$HOME") .. "/.local/share/zvm/bin/zls" },
 			})

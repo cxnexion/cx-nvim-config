@@ -23,20 +23,7 @@ vim.diagnostic.config({
 		source = true, -- shows which LSP/linter is reporting
 	},
 })
-
--- Folding
-vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 99
-
-vim.api.nvim_create_autocmd("User", { -- lazy loading here so it's not requiring when wk isn't ready
-	pattern = "VeryLazy",
-	callback = function()
-		local wk = require("which-key")
-		wk.add({
-			{ "<leader>d", desc = "Open Diagnostic" },
-		})
-	end,
-})
+vim.keymap.set("n", "<leader>n", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

@@ -24,6 +24,7 @@ return {
 			vim.lsp.config("*", { capabilities = capabilities })
 
 			vim.lsp.enable("gleam")
+			vim.lsp.enable("clangd")
 			vim.lsp.config("zls", {
 				cmd = { vim.fn.expand("$HOME") .. "/.local/share/zvm/bin/zls" },
 			})
